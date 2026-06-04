@@ -615,7 +615,25 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         gopls = {},
-        -- pyright = {},
+        pyright = {
+          before_init = function(_, config)
+            local venv = os.getenv 'VIRTUAL_ENV'
+            if venv then
+              config.settings = config.settings or {}
+              config.settings.python = config.settings.python or {}
+              config.settings.python.pythonPath = venv .. '/bin/python'
+            end
+          end,
+          settings = {
+            python = {
+              analysis = {
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = 'workspace',
+              },
+            },
+          },
+        },
         -- rust_analyzer = {},
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -704,7 +722,7 @@ require('lazy').setup({
         -- gofmt ships with Go; goimports formats + fixes imports if installed (`go install golang.org/x/tools/cmd/goimports@latest`)
         go = { 'goimports', 'gofmt', stop_after_first = true },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { 'ruff_format', 'ruff_organize_imports', stop_after_first = false },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
