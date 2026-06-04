@@ -204,6 +204,10 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 vim.keymap.set('i', 'jj', '<Esc>', { desc = 'Exit insert mode with jj' })
+vim.keymap.set('i', '<M-Right>', '<C-o>w', { desc = 'Move forward one word' })
+vim.keymap.set('i', '<M-Left>', '<C-o>b', { desc = 'Move backward one word' })
+vim.keymap.set('i', '<M-f>', '<C-o>w', { desc = 'Move forward one word (alt seq)' })
+vim.keymap.set('i', '<M-b>', '<C-o>b', { desc = 'Move backward one word (alt seq)' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
